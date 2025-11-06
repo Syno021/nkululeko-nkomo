@@ -1,0 +1,381 @@
+/* Minimal styles adapted from my-portfolio/css/style.css for the landing */
+
+.landing-wrapper {
+	min-height: 100vh;
+	width: 100%;
+	position: relative;
+	overflow-x: hidden;
+	overflow-y: auto;
+	color: #e8f0ff;
+	background: radial-gradient(1200px 600px at 10% 10%, rgba(0, 191, 255, 0.15), transparent 60%),
+		radial-gradient(1000px 600px at 90% 20%, rgba(147, 51, 234, 0.12), transparent 60%),
+		linear-gradient(180deg, #060a12 0%, #090f1d 50%, #050812 100%);
+	display: flex;
+	flex-direction: column;
+}
+
+/* Sci‑fi starfield and grid overlay */
+.landing-wrapper.sci-fi::before,
+.landing-wrapper.sci-fi::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+
+/* Twinkling stars */
+.landing-wrapper.sci-fi::before {
+	background-image:
+		radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.7) 0, rgba(255,255,255,0) 60%),
+		radial-gradient(1.5px 1.5px at 70% 20%, rgba(124,58,237,0.8) 0, rgba(124,58,237,0) 60%),
+		radial-gradient(1.8px 1.8px at 40% 70%, rgba(34,211,238,0.9) 0, rgba(34,211,238,0) 60%),
+		radial-gradient(1.2px 1.2px at 85% 65%, rgba(255,255,255,0.6) 0, rgba(255,255,255,0) 60%),
+		radial-gradient(1.2px 1.2px at 10% 80%, rgba(255,255,255,0.6) 0, rgba(255,255,255,0) 60%);
+	opacity: 0.55;
+	animation: starsTwinkle 5s ease-in-out infinite;
+}
+
+/* Subtle perspective grid */
+.landing-wrapper.sci-fi::after {
+	background:
+		linear-gradient(rgba(120,150,255,0.08) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(120,150,255,0.08) 1px, transparent 1px);
+	background-size: 80px 80px, 80px 80px;
+	transform: perspective(600px) rotateX(70deg) translateY(35%);
+	filter: drop-shadow(0 0 8px rgba(124,58,237,0.25));
+	opacity: 0.25;
+}
+
+@keyframes starsTwinkle {
+	0%, 100% { opacity: 0.45; }
+	50% { opacity: 0.8; }
+}
+
+.landing-canvas {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	opacity: 0.9;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 54vh;
+    padding-left: 0;
+    text-align: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.animated-title {
+    font-size: 5rem;
+	font-weight: bold;
+	position: relative;
+	text-transform: uppercase;
+	margin-bottom: 1rem;
+}
+
+.neon {
+    background: linear-gradient(90deg, #bfe5ff, #cbb2ff, #7de3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.7),
+        0 0 18px rgba(124, 58, 237, 0.55),
+        0 0 36px rgba(34, 211, 238, 0.45);
+}
+
+/* Ensure gradient applies to split-letter spans */
+.animated-title.neon span {
+    background: linear-gradient(90deg, #bfe5ff, #cbb2ff, #7de3ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.7),
+        0 0 18px rgba(124, 58, 237, 0.55),
+        0 0 36px rgba(34, 211, 238, 0.45);
+}
+
+.subneon { color: #eaf2ff; text-shadow: 0 0 12px rgba(34, 211, 238, 0.4), 0 0 24px rgba(124, 58, 237, 0.25); }
+/* Ensure split-word spans keep the bright color */
+.animated-tagline.subneon span {
+    color: #eaf2ff;
+    text-shadow: 0 0 12px rgba(34, 211, 238, 0.4), 0 0 24px rgba(124, 58, 237, 0.25);
+}
+
+.animated-title span {
+	display: inline-block;
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+@keyframes slideUp {
+	0% { opacity: 0; transform: translateY(50px); }
+	100% { opacity: 1; transform: translateY(0); text-shadow: 5px 5px 10px rgba(0,0,0,0.6); }
+}
+
+.animated-tagline {
+    font-size: 1.8rem;
+    opacity: 1;
+    margin-top: 0.5rem;
+}
+
+.animated-tagline span {
+	display: inline-block;
+	opacity: 0;
+	transform: translateX(100px);
+}
+
+@keyframes slideLeft {
+	0% { opacity: 0; transform: translateX(100px); }
+	100% { opacity: 1; transform: translateX(0); }
+}
+
+.about-card {
+    background: rgba(10, 15, 35, 0.45);
+    border: 1px solid rgba(120, 150, 255, 0.15);
+    backdrop-filter: blur(8px);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.glass { box-shadow: 0 10px 40px rgba(0, 200, 255, 0.08), inset 0 0 40px rgba(140, 100, 255, 0.05); }
+
+.about-content {
+    min-height: 96px;
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Services grid: two cards per row, stack on small screens */
+.services-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+@media (max-width: 640px) {
+    .services-grid-2 { grid-template-columns: 1fr; }
+}
+
+.typing-cursor {
+	display: inline-block;
+	width: 2px;
+	height: 1.2em;
+	background: #fff;
+	margin-left: 4px;
+	animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+	0%, 50% { opacity: 1; }
+	50.1%, 100% { opacity: 0; }
+}
+
+.read-more {
+	margin-top: 1rem;
+	background: linear-gradient(135deg, #22d3ee, #a78bfa);
+	color: #07101f;
+	border: none;
+	padding: 0.6rem 1rem;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.cta-wrapper {
+	position: relative;
+	display: inline-flex;
+	flex-direction: column;
+	align-self: center;
+	align-items: center;
+}
+
+.click-hint {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-bottom: 6px;
+	font-size: 0.9rem;
+	color: #eaf2ff;
+	text-shadow: 0 0 10px rgba(34,211,238,0.35), 0 0 18px rgba(124,58,237,0.25);
+	animation: hintBounce 1.4s ease-in-out infinite;
+	white-space: nowrap;
+	opacity: 0.9;
+	pointer-events: none;
+}
+
+.click-hint .hint-arrow { display: inline-block; filter: drop-shadow(0 0 6px rgba(124,58,237,0.35)); }
+
+@keyframes hintBounce {
+	0%, 100% { transform: translate(-50%, -2px); opacity: 0.85; }
+	50% { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.cta-row { margin-top: 1.1rem; }
+.btn-cta {
+	--shadow: 0 10px 30px rgba(124, 58, 237, 0.25), 0 10px 50px rgba(34, 211, 238, 0.2);
+	background: linear-gradient(135deg, #22d3ee, #7dd3fc 40%, #a78bfa);
+	color: #06111f;
+	border: 0;
+	padding: 0.9rem 1.4rem;
+	border-radius: 12px;
+	font-weight: 800;
+	letter-spacing: 0.4px;
+	box-shadow: var(--shadow);
+	transform-style: preserve-3d;
+	transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+.btn-cta:hover { filter: brightness(1.08); box-shadow: 0 14px 38px rgba(124,58,237,0.35), 0 16px 60px rgba(34,211,238,0.25); transform: translateZ(6px) scale(1.02); }
+.btn-cta span { display: inline-block; transform: translateZ(12px); }
+
+@media (max-width: 768px) {
+    .hero { padding-left: 0; height: 48vh; }
+    .animated-title { font-size: 2.8rem; }
+    .animated-tagline { font-size: 1.3rem; }
+}
+
+
+/* Projects grid and card effects */
+.projects-grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px; /* space between cards */
+    padding: 16px; /* space from container edges */
+}
+
+@media (max-width: 1280px) {
+    .projects-grid-5 { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 1024px) {
+    .projects-grid-5 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .projects-grid-5 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+    .projects-grid-5 { grid-template-columns: 1fr; }
+}
+
+.project-card-3d {
+    position: relative;
+    overflow: hidden;
+    border: none; /* ensure no outer border */
+    transition: transform 280ms ease, box-shadow 280ms ease;
+    will-change: transform;
+}
+
+.project-card-3d::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(120, 150, 255, 0.16); /* thin line margin */
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.project-card-3d::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: radial-gradient(
+        180px 180px at var(--mx, 50%) var(--my, 50%),
+        rgba(120,150,255,0.25),
+        rgba(120,150,255,0.12) 28%,
+        rgba(120,150,255,0.07) 44%,
+        rgba(120,150,255,0.03) 60%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 220ms ease;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.project-card-3d:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(34, 211, 238, 0.12), 0 10px 26px rgba(124, 58, 237, 0.12);
+}
+
+.project-card-3d:hover::before {
+    border-color: rgba(120, 150, 255, 0.26);
+}
+
+.project-card-3d:hover::after {
+    opacity: 1; /* watery highlight appears on hover and follows cursor via --mx/--my */
+}
+
+/* Contact page layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr;
+    gap: 24px;
+}
+@media (max-width: 960px) {
+    .contact-grid { grid-template-columns: 1fr; }
+}
+
+.contact-panel,
+.contact-form {
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(10, 15, 35, 0.4);
+    position: relative;
+}
+
+.contact-heading {
+    color: #eaf2ff;
+    font-weight: 800;
+    font-size: 1.25rem;
+    margin-bottom: 6px;
+}
+.contact-copy { color: #c6d2ff; margin-bottom: 16px; }
+
+.contact-list { display: grid; gap: 12px; }
+.contact-item { display: grid; gap: 4px; }
+.contact-label { color: #9fb2ff; font-weight: 700; font-size: 0.9rem; }
+.contact-value { color: #eaf2ff; text-decoration: none; }
+.contact-value:hover { text-decoration: underline; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-field { display: grid; gap: 6px; }
+.form-field label { color: #dbe5ff; font-weight: 600; font-size: 0.95rem; }
+.form-field input,
+.form-field textarea {
+    background: rgba(6, 12, 28, 0.6);
+    color: #eaf2ff;
+    border: 1px solid rgba(120, 150, 255, 0.18);
+    border-radius: 10px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: #9fb2ff; opacity: 0.7; }
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: rgba(120, 150, 255, 0.35);
+    box-shadow: 0 0 0 3px rgba(120, 150, 255, 0.18);
+}
+
+.form-actions { margin-top: 10px; display: flex; justify-content: flex-end; }
+.form-actions .btn-cta[disabled] { opacity: 0.7; cursor: not-allowed; }
+
