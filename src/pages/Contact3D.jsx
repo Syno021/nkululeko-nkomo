@@ -1,11 +1,12 @@
 import './landing.css';
 import PageHeader from '../shared/PageHeader';
 import SpaceBackground from '../shared/SpaceBackground';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Contact3D() {
     const [form, setForm] = useState({ name: '', email: '', message: '' });
     const [sending, setSending] = useState(false);
+    const contactGridRef = useRef(null);
 
     const updateField = (e) => {
         const { name, value } = e.target;
@@ -24,6 +25,24 @@ export default function Contact3D() {
         setTimeout(() => setSending(false), 800);
     };
 
+    // Calculate when title animation completes and show cards
+    useEffect(() => {
+        const pageHeaderDelay = 0.06; // 60ms delay in PageHeader
+        const titleFirst = "Contact"; // 7 characters
+        const totalChars = titleFirst.length; // 7 characters
+        
+        // Title animation: delay + (totalChars - 1) * 0.1 + 0.8
+        const titleAnimationDuration = pageHeaderDelay + (totalChars - 1) * 0.1 + 0.8;
+        
+        const timer = setTimeout(() => {
+            if (contactGridRef.current) {
+                contactGridRef.current.classList.remove('hidden');
+            }
+        }, titleAnimationDuration * 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="landing-wrapper sci-fi" style={{ minHeight: '100vh', position: 'relative' }}>
             <SpaceBackground />
@@ -32,7 +51,7 @@ export default function Contact3D() {
             </div>
             <div className="about-card glass" style={{ maxWidth: 1200 }}>
                 <div className="about-content">
-                    <div className="contact-grid">
+                    <div className="contact-grid hidden" ref={contactGridRef}>
                         <div className="contact-panel glass">
                             <div className="contact-heading">Get in touch</div>
                             <p className="contact-copy">Feel free to reach out for collaborations, freelance work, or just a friendly hello.</p>

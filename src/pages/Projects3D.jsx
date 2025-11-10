@@ -1,8 +1,10 @@
 import './landing.css';
 import PageHeader from '../shared/PageHeader';
 import SpaceBackground from '../shared/SpaceBackground';
+import { useEffect, useRef } from 'react';
 
 export default function Projects3D() {
+    const projectsGridRef = useRef(null);
     const handleCardMouseMove = (e) => {
         const el = e.currentTarget;
         const rect = el.getBoundingClientRect();
@@ -17,6 +19,26 @@ export default function Projects3D() {
         el.style.removeProperty('--mx');
         el.style.removeProperty('--my');
     };
+
+    // Calculate when title animation completes and show cards
+    useEffect(() => {
+        const pageHeaderDelay = 0.06; // 60ms delay in PageHeader
+        const titleFirst = "Projects"; // 8 characters
+        const titleSecond = "& Experience"; // 13 characters (including space)
+        const totalChars = titleFirst.length + titleSecond.length; // 21 characters
+        
+        // Title animation: delay + (totalChars - 1) * 0.1 + 0.8
+        const titleAnimationDuration = pageHeaderDelay + (totalChars - 1) * 0.1 + 0.8;
+        
+        const timer = setTimeout(() => {
+            if (projectsGridRef.current) {
+                projectsGridRef.current.classList.remove('hidden');
+            }
+        }, titleAnimationDuration * 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     const items = [
         {
             title: 'E-Commerce Platform',
@@ -98,7 +120,7 @@ export default function Projects3D() {
             </div>
             <div className="about-card glass" style={{ maxWidth: 1400 }}>
                 <div className="about-content">
-                    <div className="projects-grid-5">
+                    <div className="projects-grid-5 hidden" ref={projectsGridRef}>
                         {items.map((p) => (
                             <div
                                 key={p.title}
