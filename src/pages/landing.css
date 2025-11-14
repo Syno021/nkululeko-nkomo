@@ -449,6 +449,33 @@
     .projects-grid-5 { grid-template-columns: 1fr; }
 }
 
+/* Projects grid - 4 columns */
+.projects-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 16px;
+}
+
+.projects-grid-4.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+}
+
+@media (max-width: 1280px) {
+    .projects-grid-4 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 1024px) {
+    .projects-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+@media (max-width: 768px) {
+    .projects-grid-4 { grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 12px; }
+}
+@media (max-width: 520px) {
+    .projects-grid-4 { grid-template-columns: 1fr; gap: 16px; padding: 12px; }
+}
+
 /* Core Skills Grid - 7 skills */
 .projects-grid-core {
     display: grid;

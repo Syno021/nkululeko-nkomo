@@ -1,10 +1,13 @@
 import './landing.css';
 import PageHeader from '../shared/PageHeader';
 import SpaceBackground from '../shared/SpaceBackground';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Projects3D() {
-    const projectsGridRef = useRef(null);
+    const hostedGridRef = useRef(null);
+    const devGridRef = useRef(null);
+    const [previewErrors, setPreviewErrors] = useState(new Set());
+    
     const handleCardMouseMove = (e) => {
         const el = e.currentTarget;
         const rect = el.getBoundingClientRect();
@@ -22,95 +25,116 @@ export default function Projects3D() {
 
     // Calculate when title animation completes and show cards
     useEffect(() => {
-        const pageHeaderDelay = 0.06; // 60ms delay in PageHeader
-        const titleFirst = "Projects"; // 8 characters
-        const titleSecond = "& Experience"; // 13 characters (including space)
-        const totalChars = titleFirst.length + titleSecond.length; // 21 characters
-        
-        // Title animation: delay + (totalChars - 1) * 0.1 + 0.8
+        const pageHeaderDelay = 0.06;
+        const titleFirst = "Projects";
+        const titleSecond = "& Experience";
+        const totalChars = titleFirst.length + titleSecond.length;
         const titleAnimationDuration = pageHeaderDelay + (totalChars - 1) * 0.1 + 0.8;
         
         const timer = setTimeout(() => {
-            if (projectsGridRef.current) {
-                projectsGridRef.current.classList.remove('hidden');
+            if (hostedGridRef.current) {
+                hostedGridRef.current.classList.remove('hidden');
+            }
+            if (devGridRef.current) {
+                devGridRef.current.classList.remove('hidden');
             }
         }, titleAnimationDuration * 1000);
 
         return () => clearTimeout(timer);
     }, []);
 
-    const items = [
+    // Hosted & Completed Projects
+    const hostedProjects = [
         {
-            title: 'E-Commerce Platform',
-            desc: 'React + Node.js store with auth, search, payments.',
-            langs: ['React', 'Node.js', 'MongoDB'],
-            image: 'https://via.placeholder.com/80?text=EC',
-            link: 'https://example.com/ecommerce'
+            title: 'Spark Dev Studio',
+            desc: 'Our company website developed using HTML, CSS, and JavaScript.',
+            langs: ['HTML', 'CSS', 'JavaScript'],
+            link: 'https://www.sparkdevstudio.org/',
+            preview: 'https://www.sparkdevstudio.org/',
+            icon: '🏢'
         },
         {
-            title: 'Task Management App',
-            desc: 'Flutter app with sync, reminders, collaboration.',
-            langs: ['Flutter', 'Dart', 'Firebase'],
-            image: 'https://via.placeholder.com/80?text=TM',
-            link: 'https://example.com/tasks'
+            title: 'Iskills Academy',
+            desc: 'A platform that teaches basic skills about coding developed using React JS.',
+            langs: ['React', 'JavaScript'],
+            link: 'https://www.iskillacademy.co.za/',
+            preview: 'https://www.iskillacademy.co.za/',
+            icon: '🎓'
         },
         {
-            title: 'Portfolio Website',
-            desc: 'Responsive portfolio with galleries and blog.',
-            langs: ['Next.js', 'Tailwind', 'Vercel'],
-            image: 'https://via.placeholder.com/80?text=PF',
-            link: 'https://example.com/portfolio'
+            title: 'CoopCV',
+            desc: 'A system for co-operative education for applications using Ionic.',
+            langs: ['Ionic', 'TypeScript'],
+            link: 'https://www.coopcv.com',
+            preview: 'https://www.coopcv.com/home',
+            icon: '📚'
         },
         {
-            title: 'Real Estate Listings',
-            desc: 'Filters, maps, virtual tours, valuation.',
-            langs: ['React', 'Mapbox', 'Express'],
-            image: 'https://via.placeholder.com/80?text=RE',
-            link: 'https://example.com/real-estate'
+            title: 'Healixir',
+            desc: 'A healthcare platform to digitize healthcare facilities using Ionic.',
+            langs: ['Ionic', 'TypeScript'],
+            link: 'https://healixir.org/',
+            preview: 'https://healixir.org/',
+            icon: '🏥'
         },
         {
-            title: 'Fitness Tracker',
-            desc: 'Workouts, nutrition, progress visualization.',
-            langs: ['React Native', 'TypeScript'],
-            image: 'https://via.placeholder.com/80?text=FT',
-            link: 'https://example.com/fitness'
+            title: 'Unite Easy',
+            desc: 'A system for event management where you book venues and event equipment, developed using Ionic.',
+            langs: ['Ionic', 'TypeScript'],
+            link: 'https://uniteasy-62dbf.web.app/welcome',
+            preview: 'https://uniteasy-62dbf.web.app/welcome',
+            icon: '📅'
         },
         {
-            title: 'Educational Platform',
-            desc: 'Courses, quizzes, progress tracking.',
-            langs: ['Vue', 'Node.js', 'PostgreSQL'],
-            image: 'https://via.placeholder.com/80?text=ED',
-            link: 'https://example.com/education'
+            title: 'Smart Farming App',
+            desc: 'A farming management app for managing crops to detect and prevent crop loss, developed using React.',
+            langs: ['React', 'JavaScript'],
+            link: 'https://smart-farming-app-seven.vercel.app/',
+            preview: 'https://smart-farming-app-seven.vercel.app/',
+            icon: '🌾'
         },
         {
-            title: 'Chat Application',
-            desc: 'Realtime chat with groups and media.',
-            langs: ['Socket.io', 'React', 'Redis'],
-            image: 'https://via.placeholder.com/80?text=CH',
-            link: 'https://example.com/chat'
+            title: 'Certify Pro',
+            desc: 'A learning platform for cybersecurity certifications where you can practice and take tests for final examination, developed using Ionic.',
+            langs: ['Ionic', 'TypeScript'],
+            link: 'https://certify-pro-seven.vercel.app/home',
+            preview: 'https://certify-pro-seven.vercel.app/home',
+            icon: '🔒'
         },
         {
-            title: 'Analytics Dashboard',
-            desc: 'Data viz and KPI monitoring.',
-            langs: ['React', 'D3.js', 'Node.js'],
-            image: 'https://via.placeholder.com/80?text=AD',
-            link: 'https://example.com/analytics'
-        },
-        {
-            title: 'Booking System',
-            desc: 'Reservations with calendar integration.',
-            langs: ['Laravel', 'MySQL', 'Vue'],
-            image: 'https://via.placeholder.com/80?text=BK',
-            link: 'https://example.com/booking'
-        },
-        {
-            title: 'AI Image Tagger',
-            desc: 'Auto-tag images using ML.',
-            langs: ['Python', 'FastAPI', 'React'],
-            image: 'https://via.placeholder.com/80?text=AI',
-            link: 'https://example.com/ai-tagger'
+            title: 'Artificial Insemination',
+            desc: 'A course platform to teach about artificial insemination, developed using React JS.',
+            langs: ['React', 'JavaScript'],
+            link: 'https://artificial-insemination.vercel.app/',
+            preview: 'https://artificial-insemination.vercel.app/',
+            icon: '🐄'
         }
     ];
+
+    // Under Development Projects (placeholder for future projects)
+    const devProjects = [
+        // Add any projects that are under development here
+    ];
+
+    const getScreenshotUrl = (url) => {
+        // Try multiple screenshot services as fallback
+        try {
+            // Using screenshotapi.net service (free tier, no key needed for some URLs)
+            // Alternative: image.thum.io might require authentication
+            // For now, return null to default to icon view (more reliable)
+            // Users can click to visit the actual site
+            return null;
+            
+            // If you want to try screenshot services, uncomment one:
+            // Option 1: image.thum.io (may require auth)
+            // return `https://image.thum.io/get/width/600/crop/400/noanimate/${encodeURIComponent(url)}`;
+            
+            // Option 2: screenshotapi.net (requires API key for production)
+            // return `https://api.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=600&height=400`;
+        } catch {
+            return null;
+        }
+    };
 
     return (
         <div className="landing-wrapper sci-fi" style={{ minHeight: '100vh', position: 'relative' }}>
@@ -120,41 +144,226 @@ export default function Projects3D() {
             </div>
             <div className="about-card glass" style={{ maxWidth: 1400 }}>
                 <div className="about-content">
-                    <div className="projects-grid-5 hidden" ref={projectsGridRef}>
-                        {items.map((p) => (
-                            <div
-                                key={p.title}
-                                className="glass project-card-3d"
-                                onMouseMove={handleCardMouseMove}
-                                onMouseLeave={handleCardMouseLeave}
-                                style={{ padding: '16px', borderRadius: '10px', background: 'rgba(10,15,35,0.4)' }}
-                            >
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
-                                    <img src={p.image} alt={p.title} style={{ width: 56, height: 56, borderRadius: 8, objectFit: 'cover' }} />
-                                    <div style={{ fontWeight: 800, color: '#eaf2ff' }}>{p.title}</div>
-                                </div>
-                                <div style={{ color: '#c6d2ff', fontSize: 14, lineHeight: 1.5, marginBottom: 12 }}>{p.desc}</div>
-                                {Array.isArray(p.langs) && p.langs.length > 0 && (
-                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
-                                        {p.langs.map((l) => (
-                                            <span key={l} style={{ fontSize: 12, padding: '4px 8px', borderRadius: 999, background: 'rgba(120,150,255,0.12)', color: '#dbe5ff' }}>{l}</span>
-                                        ))}
+                    {/* Hosted & Completed Projects Section */}
+                    <div style={{ marginBottom: '3rem' }}>
+                        <h2 style={{ 
+                            fontSize: '2rem', 
+                            fontWeight: 800, 
+                            color: '#eaf2ff', 
+                            marginBottom: '1.5rem',
+                            textAlign: 'center',
+                            background: 'linear-gradient(90deg, #bfe5ff, #cbb2ff, #7de3ff)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}>
+                            Hosted & Completed Projects
+                        </h2>
+                        <div className="projects-grid-4 hidden" ref={hostedGridRef}>
+                            {hostedProjects.map((p) => {
+                                const screenshotUrl = getScreenshotUrl(p.link);
+                                const hasPreviewError = previewErrors.has(p.title);
+                                // Default to showing icons - more reliable than screenshot services
+                                const showPreview = screenshotUrl && !hasPreviewError;
+                                return (
+                                    <div
+                                        key={p.title}
+                                        className="glass project-card-3d"
+                                        onMouseMove={handleCardMouseMove}
+                                        onMouseLeave={handleCardMouseLeave}
+                                        style={{ 
+                                            padding: '0', 
+                                            borderRadius: '12px', 
+                                            background: 'rgba(10,15,35,0.5)',
+                                            overflow: 'hidden',
+                                            display: 'flex',
+                                            flexDirection: 'column'
+                                        }}
+                                    >
+                                        {/* Website Preview - Show screenshot if available, otherwise show icon */}
+                                        {showPreview ? (
+                                            // Try screenshot service
+                                            <div style={{ 
+                                                width: '100%', 
+                                                height: '200px', 
+                                                position: 'relative',
+                                                overflow: 'hidden',
+                                                background: 'rgba(6, 12, 28, 0.6)',
+                                                borderTopLeftRadius: '12px',
+                                                borderTopRightRadius: '12px'
+                                            }}>
+                                                <img 
+                                                    src={screenshotUrl} 
+                                                    alt={`${p.title} preview`}
+                                                    onError={() => {
+                                                        setPreviewErrors(prev => new Set(prev).add(p.title));
+                                                    }}
+                                                    style={{ 
+                                                        width: '100%', 
+                                                        height: '100%', 
+                                                        objectFit: 'cover',
+                                                        borderTopLeftRadius: '12px',
+                                                        borderTopRightRadius: '12px'
+                                                    }} 
+                                                />
+                                                <div style={{
+                                                    position: 'absolute',
+                                                    top: '8px',
+                                                    right: '8px',
+                                                    background: 'rgba(34, 211, 238, 0.9)',
+                                                    color: '#06111f',
+                                                    padding: '4px 10px',
+                                                    borderRadius: '12px',
+                                                    fontSize: '0.7rem',
+                                                    fontWeight: 700,
+                                                    textTransform: 'uppercase'
+                                                }}>LIVE</div>
+                                            </div>
+                                        ) : (
+                                            // Default: Show icon with gradient background (always reliable)
+                                            <div style={{ 
+                                                width: '100%', 
+                                                height: '200px', 
+                                                position: 'relative',
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                justifyContent: 'center',
+                                                background: 'linear-gradient(135deg, rgba(120,150,255,0.15), rgba(124,58,237,0.1))',
+                                                borderTopLeftRadius: '12px',
+                                                borderTopRightRadius: '12px'
+                                            }}>
+                                                <div style={{
+                                                    fontSize: '5rem',
+                                                    filter: 'drop-shadow(0 4px 12px rgba(120,150,255,0.3))',
+                                                    transition: 'transform 0.3s ease'
+                                                }} onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'scale(1.1) rotate(5deg)';
+                                                }} onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'scale(1) rotate(0deg)';
+                                                }}>
+                                                    {p.icon}
+                                                </div>
+                                                {p.link && (
+                                                    <div style={{
+                                                        position: 'absolute',
+                                                        top: '8px',
+                                                        right: '8px',
+                                                        background: 'rgba(34, 211, 238, 0.9)',
+                                                        color: '#06111f',
+                                                        padding: '4px 10px',
+                                                        borderRadius: '12px',
+                                                        fontSize: '0.7rem',
+                                                        fontWeight: 700,
+                                                        textTransform: 'uppercase'
+                                                    }}>LIVE</div>
+                                                )}
+                                            </div>
+                                        )}
+                                        <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                                                <div style={{ fontWeight: 800, color: '#eaf2ff', fontSize: '1.1rem', flex: 1 }}>{p.title}</div>
+                                            </div>
+                                            <div style={{ color: '#c6d2ff', fontSize: 14, lineHeight: 1.5, marginBottom: 12, flex: 1 }}>{p.desc}</div>
+                                            {Array.isArray(p.langs) && p.langs.length > 0 && (
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+                                                    {p.langs.map((l) => (
+                                                        <span key={l} style={{ fontSize: 12, padding: '4px 8px', borderRadius: 999, background: 'rgba(120,150,255,0.12)', color: '#dbe5ff' }}>{l}</span>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            {p.link && (
+                                                <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
+                                                    display: 'inline-block',
+                                                    padding: '10px 16px',
+                                                    borderRadius: 8,
+                                                    background: 'linear-gradient(135deg, rgba(120,150,255,0.35), rgba(120,150,255,0.2))',
+                                                    color: '#eaf2ff',
+                                                    textDecoration: 'none',
+                                                    fontWeight: 700,
+                                                    textAlign: 'center',
+                                                    transition: 'all 0.3s ease'
+                                                }} onMouseEnter={(e) => {
+                                                    e.target.style.background = 'linear-gradient(135deg, rgba(120,150,255,0.5), rgba(120,150,255,0.3))';
+                                                    e.target.style.transform = 'translateY(-2px)';
+                                                }} onMouseLeave={(e) => {
+                                                    e.target.style.background = 'linear-gradient(135deg, rgba(120,150,255,0.35), rgba(120,150,255,0.2))';
+                                                    e.target.style.transform = 'translateY(0)';
+                                                }}>Visit Site →</a>
+                                            )}
+                                        </div>
                                     </div>
-                                )}
-                                {p.link && (
-                                    <a href={p.link} target="_blank" rel="noopener noreferrer" style={{
-                                        display: 'inline-block',
-                                        padding: '8px 12px',
-                                        borderRadius: 8,
-                                        background: 'linear-gradient(135deg, rgba(120,150,255,0.35), rgba(120,150,255,0.2))',
-                                        color: '#eaf2ff',
-                                        textDecoration: 'none',
-                                        fontWeight: 700
-                                    }}>View Project</a>
-                                )}
-                            </div>
-                        ))}
+                                );
+                            })}
+                        </div>
                     </div>
+
+                    {/* Under Development Projects Section */}
+                    {devProjects.length > 0 && (
+                        <div>
+                            <h2 style={{ 
+                                fontSize: '2rem', 
+                                fontWeight: 800, 
+                                color: '#eaf2ff', 
+                                marginBottom: '1.5rem',
+                                textAlign: 'center',
+                                background: 'linear-gradient(90deg, #cbb2ff, #bfe5ff, #cbb2ff)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                            }}>
+                                Under Development
+                            </h2>
+                            <div className="projects-grid-4 hidden" ref={devGridRef}>
+                                {devProjects.map((p) => (
+                                    <div
+                                        key={p.title}
+                                        className="glass project-card-3d"
+                                        onMouseMove={handleCardMouseMove}
+                                        onMouseLeave={handleCardMouseLeave}
+                                        style={{ 
+                                            padding: '16px', 
+                                            borderRadius: '12px', 
+                                            background: 'rgba(10,15,35,0.4)',
+                                            opacity: 0.8
+                                        }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '10px' }}>
+                                            <div style={{ 
+                                                fontSize: '2.5rem', 
+                                                width: '56px', 
+                                                height: '56px', 
+                                                display: 'flex', 
+                                                alignItems: 'center', 
+                                                justifyContent: 'center',
+                                                background: 'rgba(147, 51, 234, 0.15)',
+                                                borderRadius: '12px'
+                                            }}>
+                                                {p.icon}
+                                            </div>
+                                            <div style={{ fontWeight: 800, color: '#eaf2ff' }}>{p.title}</div>
+                                        </div>
+                                        <div style={{ color: '#c6d2ff', fontSize: 14, lineHeight: 1.5, marginBottom: 12 }}>{p.desc}</div>
+                                        {Array.isArray(p.langs) && p.langs.length > 0 && (
+                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
+                                                {p.langs.map((l) => (
+                                                    <span key={l} style={{ fontSize: 12, padding: '4px 8px', borderRadius: 999, background: 'rgba(147, 51, 234, 0.12)', color: '#dbe5ff' }}>{l}</span>
+                                                ))}
+                                            </div>
+                                        )}
+                                        <div style={{
+                                            display: 'inline-block',
+                                            padding: '8px 12px',
+                                            borderRadius: 8,
+                                            background: 'rgba(147, 51, 234, 0.2)',
+                                            color: '#cbb2ff',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600
+                                        }}>🚧 Coming Soon</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

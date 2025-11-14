@@ -117,9 +117,17 @@ export default function Landing() {
 			</div>
 
 			<div className="about-card glass hidden" ref={aboutCardRef}>
-				<h2>About Me</h2>
 				<div className="about-content">
-					<p>Hi, I'm SYNO. I'm a passionate full-stack developer specializing in web and app development. I graduated from the University of Technology with a degree in Computer Science in 2019. Since then, I've been building innovative solutions for clients across various industries. My expertise includes React, Node.js, Flutter, and cloud infrastructures. I believe in clean code and user-centered design principles. When I'm not coding, you can find me hiking or exploring new technologies.</p>
+					<p>Hi, I’m Nkululeko Nkomo, a passionate Software Developer dedicated to building innovative, meaningful solutions that make an impact. 🚀
+This website you’re exploring is my personal portfolio, showcasing my skills, experience, and the services I offer. It was crafted with React.js, enhanced with 3D graphics and smooth animations to create a more immersive and interactive user experience.
+
+I consider myself a diligent and committed individual — when I set my mind on something, I make sure it gets done, and done well. 💪
+
+My academic journey began at Mangosuthu University of Technology (MUT), where I earned my Diploma in Information Technology in 2022. I later advanced my expertise by completing my Advanced Diploma in Software Development in 2025. 🎓
+
+Below, you’ll find a glimpse into my professional journey since I first stepped into the world of software development. If you’d like to dive deeper and get to know me even better, feel free to click the “See More” button — where you’ll be mid blown… or maybe not 😅,
+
+Enjoy your stay, and welcome to my world of code and creativity! 🌍💻</p>
 				</div>
 			</div>
 
